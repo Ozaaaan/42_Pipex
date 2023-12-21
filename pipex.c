@@ -14,7 +14,8 @@
 
 void	exit_error(char *msg)
 {
-	perror(msg);
+	write(STDERR_FILENO, msg, ft_strlen(msg));
+	write(STDERR_FILENO, "\n", 1);
 	exit(EXIT_FAILURE);
 }
 
@@ -79,6 +80,7 @@ void	redir(char *cmd, char **env)
 		close(fd_tab[0]);
 		dup2(fd_tab[1], STDOUT_FILENO);
 		exec(cmd, env);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -92,7 +94,11 @@ int	main(int ac, char **av, char **env)
 	else
 	{
 		fd1 = open_file(av[1], 1);
+		if (fd1 == -1)
+			exit_error("Erreur infile");
 		fd2 = open_file(av[4], 0);
+		if (fd2 == -1)
+			exit_error("Erreur outfile");
 		dup2(fd1, STDIN_FILENO);
 		dup2(fd2, STDOUT_FILENO);
 		redir(av[2], env);

@@ -17,11 +17,11 @@ int	open_file(char *file, int nb)
 	if (nb == 1)
 	{
 		if (access(file, F_OK))
-			exit_error("Fichier d'entree inexistant");
+			exit_error("Fichier inexistant");
 		return (open(file, O_RDONLY));
 	}
 	else
-		return (open(file, O_WRONLY | O_CREAT | O_TRUNC));
+		return (open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644));
 }
 
 int	ft_str_chr(char *str, char c)
@@ -43,7 +43,7 @@ int	ft_str_ncmp(char *s1, char *s2, int n)
 	i = 0;
 	while (i < n - 1 && s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
-	return (s1[i] - s1[i]);
+	return (s1[i] - s2[i]);
 }
 
 char	*path_join(char *path, char *bin)
