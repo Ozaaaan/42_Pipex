@@ -6,18 +6,11 @@
 /*   By: ozdemir <ozdemir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:41:03 by ozdemir           #+#    #+#             */
-/*   Updated: 2023/12/20 12:53:06 by ozdemir          ###   ########.fr       */
+/*   Updated: 2024/01/05 15:22:39 by ozdemir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	exit_error(char *msg)
-{
-	write(STDERR_FILENO, msg, ft_strlen(msg));
-	write(STDERR_FILENO, "\n", 1);
-	exit(EXIT_FAILURE);
-}
 
 char	*getpath(char *cmd, char **env)
 {
@@ -56,7 +49,7 @@ void	exec(char *cmd, char **env)
 	else
 		path = getpath(args[0], env);
 	execve(path, args, env);
-	exit_error("Erreur dans une des commandes");
+	exit_error("command not found");
 }
 
 void	redir(char *cmd, char **env)
@@ -73,14 +66,15 @@ void	redir(char *cmd, char **env)
 	{
 		close(fd_tab[1]);
 		dup2(fd_tab[0], STDIN_FILENO);
+		close(fd_tab[0]);
 		waitpid(pid, NULL, 0);
 	}
 	else
 	{
 		close(fd_tab[0]);
 		dup2(fd_tab[1], STDOUT_FILENO);
+		close(fd_tab[1]);
 		exec(cmd, env);
-		exit(EXIT_FAILURE);
 	}
 }
 
@@ -94,11 +88,7 @@ int	main(int ac, char **av, char **env)
 	else
 	{
 		fd1 = open_file(av[1], 1);
-		if (fd1 == -1)
-			exit_error("Erreur infile");
-		fd2 = open_file(av[4], 0);
-		if (fd2 == -1)
-			exit_error("Erreur outfile");
+		fd2 = open_file(av[4], 2);
 		dup2(fd1, STDIN_FILENO);
 		dup2(fd2, STDOUT_FILENO);
 		redir(av[2], env);
