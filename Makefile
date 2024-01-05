@@ -1,7 +1,5 @@
 NAME = pipex
 
-NAMEBNS = pipex_bonus
-
 LIBFT = Libft/libft.a
 
 SRCS =	pipex.c \
@@ -25,10 +23,8 @@ all : $(NAME)
 $(NAME) : $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)
 
-bonus : $(NAMEBNS)
-
-$(NAMEBNS) : $(OBJSBONUS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJSBONUS) -o $(NAMEBNS) $(LIBFT)
+bonus : $(OBJSBONUS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJSBONUS) -o $(NAME) $(LIBFT)
 
 $(LIBFT):
 	make -C Libft
