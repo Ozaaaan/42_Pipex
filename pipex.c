@@ -6,7 +6,7 @@
 /*   By: ozdemir <ozdemir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:41:03 by ozdemir           #+#    #+#             */
-/*   Updated: 2024/01/05 15:22:39 by ozdemir          ###   ########.fr       */
+/*   Updated: 2024/01/05 17:00:14 by ozdemir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,18 @@ void	exec(char *cmd, char **env)
 {
 	char	**args;
 	char	*path;
-
+	int	i;
+	
+	i = -1;
 	args = ft_split(cmd, ' ');
 	if (ft_str_chr(args[0], '/') > -1)
 		path = args[0];
 	else
 		path = getpath(args[0], env);
 	execve(path, args, env);
+	while (args[++i])
+		free(args[i]);
+	free(args);
 	exit_error("command not found");
 }
 
