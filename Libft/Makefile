@@ -48,6 +48,10 @@ SRCS = \
 	\
 	printf/ft_printf.c \
 	printf/ft_printf_utils.c \
+	\
+	gnl/get_next_line.c \
+	gnl/get_next_line_utils.c \
+	\
 
 SRCS_BONUS = \
 	lst/ft_lstadd_back.c \
