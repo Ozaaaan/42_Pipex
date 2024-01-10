@@ -6,7 +6,7 @@
 /*   By: ozdemir <ozdemir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 08:18:46 by ozdemir           #+#    #+#             */
-/*   Updated: 2024/01/03 14:40:01 by ozdemir          ###   ########.fr       */
+/*   Updated: 2024/01/10 13:35:31 by ozdemir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putstr_fd(char *s, int fd);
 char				**ft_split(const char *s, char c);
-char				*ft_strchr(const char *s, int c);
+int					ft_strchr(char *str, char c);
 int					ft_strcmp(char *s1, char *s2);
 char				*ft_strdup(const char *str);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -72,7 +72,7 @@ size_t				ft_strlcat(char *dest, const char *src, size_t size);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 size_t				ft_strlen(const char *s);
 char				*ft_strmapi(const char *s, char (*f)(unsigned int, char));
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strncmp(char *s1, char *s2, int n);
 char				*ft_strndup(char *str, unsigned int n);
 char				*ft_strnstr(const char *str, const char *to_find, size_t n);
 char				*ft_strrchr(const char *s, int c);
