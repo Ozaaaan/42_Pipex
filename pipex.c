@@ -6,47 +6,23 @@
 /*   By: ozdemir <ozdemir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:41:03 by ozdemir           #+#    #+#             */
-/*   Updated: 2024/01/05 17:00:14 by ozdemir          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:46:53 by ozdemir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*getpath(char *cmd, char **env)
-{
-	char	*path;
-	char	*dir;
-	char	*bin;
-	int		i;
-
-	i = 0;
-	while (env[i] && ft_str_ncmp(env[i], "PATH=", 5))
-		i++;
-	if (!env[i])
-		return (cmd);
-	path = env[i] + 5;
-	while (path && ft_str_chr(path, ':') > -1)
-	{
-		dir = ft_strndup(path, ft_str_chr(path, ':'));
-		bin = path_join(dir, cmd);
-		free(dir);
-		if (access(bin, F_OK) == 0)
-			return (bin);
-		free(bin);
-		path += ft_str_chr(path, ':') + 1;
-	}
-	return (cmd);
-}
-
 void	exec(char *cmd, char **env)
 {
 	char	**args;
 	char	*path;
-	int	i;
-	
+	int		i;
+
 	i = -1;
+	if (*cmd == '\0')
+		exit_error("ERREUR");
 	args = ft_split(cmd, ' ');
-	if (ft_str_chr(args[0], '/') > -1)
+	if (ft_strchr(args[0], '/') > -1)
 		path = args[0];
 	else
 		path = getpath(args[0], env);
@@ -72,7 +48,6 @@ void	redir(char *cmd, char **env)
 		close(fd_tab[1]);
 		dup2(fd_tab[0], STDIN_FILENO);
 		close(fd_tab[0]);
-		waitpid(pid, NULL, 0);
 	}
 	else
 	{

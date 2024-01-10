@@ -6,7 +6,7 @@
 /*   By: ozdemir <ozdemir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:19:03 by ozdemir           #+#    #+#             */
-/*   Updated: 2024/01/03 13:52:35 by ozdemir          ###   ########.fr       */
+/*   Updated: 2024/01/10 15:15:16 by ozdemir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 # include <unistd.h>
 
 void	exit_error(char *msg);
+char	*getpath(char *cmd, char **env);
 char	*path_join(char *path, char *bin);
 int		open_file(char *file, int nb);
-int		ft_str_chr(char *str, char c);
-int		ft_str_ncmp(char *s1, char *s2, int n);
 
 #endif
